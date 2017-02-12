@@ -140,6 +140,28 @@ const FireBaseTools = {
         errorMessage: error.message,
     })),
 
+
+    fetchRestaurants: () => firebaseDb.ref('restaurants').once('value').then((snapshot) => ({
+        value : snapshot.val(),
+    })),
+
+    fetchRestaurant: (id) => firebaseDb.ref('restaurants/'+id).once('value').then((snapshot) => ({
+        value : snapshot.val(),
+    })),
+
+    createProduct: (values,id) => {
+      const newPostKey = firebase.database().ref().child('items').push().key;
+      var updates = {};
+      updates['/restaurants/'+id+'/menu/items/'+newPostKey] = values;
+      return firebaseDb.ref().update(updates).then(() => ({
+        message: 'Product saved',
+      }), error => ({
+        errorCode: error.code,
+        errorMessage: error.message
+      }));
+
+    },
+
   /**
    * Get the firebase database reference.
    *

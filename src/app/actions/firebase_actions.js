@@ -8,8 +8,34 @@ import {
   CHANGE_FIREBASE_USER_PASSWORD,
   FIREBASE_PASSWORD_RESET_EMAIL,
   LOGOUT_FIREBASE_USER,
+  FETCH_RESTAURANTS,
+  FETCH_RESTAURANT,
+  CREATE_PRODUCT
 } from './types';
 
+export function createProduct(values,id){
+  const request = FireBaseTools.createProduct(values,id);
+  return {
+    type: CREATE_PRODUCT,
+    payload: request,
+  };
+}
+
+export function fetchRestaurants(){
+  const request = FireBaseTools.fetchRestaurants();
+  return {
+    type: FETCH_RESTAURANTS,
+    payload: request,
+  };
+}
+
+export function fetchRestaurant(id){
+  const request = FireBaseTools.fetchRestaurant(id);
+  return {
+    type: FETCH_RESTAURANT,
+    payload: request,
+  };
+}
 
 export function loginWithProvider(provider) {
     const request = FireBaseTools.loginWithProvider(provider);
